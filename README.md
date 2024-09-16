@@ -1,2 +1,2 @@
 # coding-battle-game
-git clone https://github.com/your-username/coding-battle-game.git
+git clone https://github.com/Zedd-Void/coding-battle-game.git
