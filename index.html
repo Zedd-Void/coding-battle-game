@@ -3,33 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding Battle Game</title>
-  <link rel="stylesheet" href="style.css">
+  <title>JavaScript String Manipulation Game</title>
+  <link rel="stylesheet" href="design.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>Coding Battle Game</h1>
+      <h1>JavaScript String Manipulation Game</h1>
+      <button id="dark-mode-toggle">Toggle Dark Mode</button>
     </header>
 
-    <div class="game-info">
-      <div class="player1">
-        <h2>Player 1: <span id="player1-hp">100 HP</span></h2>
-      </div>
-      <div class="player2">
-        <h2>Player 2: <span id="player2-hp">100 HP</span></h2>
-      </div>
+    <div id="game">
+      <p id="level-info">Level: 1</p>
+      <p id="challenge-description">Solve the challenge below by writing the full code:</p>
+      <p id="challenge"></p>
+      <textarea id="user-input" placeholder="Write your code here..." onkeydown="handleEnter(event)"></textarea>
+      <button id="submit-answer">Submit</button>
+      <p id="feedback"></p>
     </div>
 
-    <div id="code-challenge">
-      <p>Solve the code challenge here!</p>
-    </div>
-
-    <div class="timer">
-      <p>Time left: <span id="time-left">10:00</span></p>
+    <div id="completion-message" style="display: none;">
+      <h2>Congratulations! You've completed all levels!</h2>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="behavior.js"></script>
 </body>
 </html>
