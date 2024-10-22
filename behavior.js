@@ -1,88 +1,124 @@
-const challenges = [
-  {
-    description: "Level 1: Write an if-else statement to check if a number is positive.",
-    solution: `if (number > 0) {  console.log('positive');} else {  console.log('negative');}`
+{
+      description: "Level 1: Write an if-else statement to check if a number is positive.",
+      solution: "let number = 5; if (number > 0) { result = 'positive'; } else { result = 'negative'; }",
+      hint: "Use 'if' to check if the number is greater than 0.",
+      secondHint: "let number = 5; if (number ___ 0) { result = 'positive'; } ___ { result = '___'; }"
   },
   {
-    description: "Level 2: Write an if-else-if-else statement to check if a number is positive, negative, or zero.",
-    solution: `if (number > 0) {\n  console.log('positive');\n} else if (number < 0) {\n  console.log('negative');\n} else {\n  console.log('zero');\n}`
+      description: "Level 2: Write an if-else-if-else statement to check if a number is positive, negative, or zero.",
+      solution: "let number = 0; if (number > 0) { result = 'positive'; } else if (number < 0) { result = 'negative'; } else { result = 'zero'; }",
+      hint: "You'll need two conditions: one for positive and one for negative.",
+      secondHint: "let number = 0; if (number ___ 0) { result = 'positive'; } ___ (number ___ 0) { result = 'negative'; } else { result = '___'; }"
   },
   {
-    description: "Level 3: Write a switch statement to handle different cases based on a grade (A, B, C, D, F).",
-    solution: `switch (grade) {\n  case 'A':\n    console.log('Excellent');\n    break;\n  case 'B':\n    console.log('Good');\n    break;\n  case 'C':\n    console.log('Average');\n    break;\n  case 'D':\n    console.log('Poor');\n    break;\n  case 'F':\n    console.log('Fail');\n    break;\n  default:\n    console.log('Invalid grade');\n}`
+      description: "Level 3: Write a switch statement to handle different cases based on a grade (A, B, C, D, F).",
+      solution: "let grade = 'A'; switch (grade) { case 'A': result = 'Excellent'; break; case 'B': result = 'Good'; break; case 'C': result = 'Average'; break; case 'D': result = 'Poor'; break; case 'F': result = 'Fail'; break; default: result = 'Invalid grade'; }",
+      hint: "Use 'switch' to handle different grades.",
+      secondHint: "let grade = 'A'; switch (grade) { ___ 'A': result = 'Excellent'; ___; case 'B': result = 'Good'; break; case 'C': ___ = 'Average'; break; ___ 'D': result = 'Poor'; break; case 'F': result ___ 'Fail'; break; default: result = '___'; }"
   },
   {
-    description: "Level 4: Use a while loop to print numbers from 1 to 5.",
-    solution: `let i = 1;\nwhile (i <= 5) {\n  console.log(i);\n  i++;\n}`
+    description: "Level 4: Reverse the string formed by a sequence of numbers.",
+    solution: "let number = '12345'; result = number.split('').reverse().join('');",
+    hint: "Use the 'split', 'reverse', and 'join' methods on the string.",
+    secondHint: "let number = '12345'; number.split('').___().___('');"
   },
   {
-    description: "Level 5: Use a do-while loop to print numbers from 1 to 5.",
-    solution: `let i = 1;\ndo {\n  console.log(i);\n  i++;\n} while (i <= 5);`
-  },
-  {
-    description: "Level 6: Use a for loop to iterate over an array and print each element.",
-    solution: `const array = [1, 2, 3];\nfor (let i = 0; i < array.length; i++) {\n  console.log(array[i]);\n}`
-  },
-  {
-    description: "Level 7: Concatenate two strings together.",
-    solution: `const string1 = 'Hello';\nconst string2 = 'World';\nconst result = string1 + ' ' + string2;\nconsole.log(result);`
-  },
-  {
-    description: "Level 8: Find the length of a string.",
-    solution: `const string = 'Hello World';\nconst length = string.length;\nconsole.log(length);`
-  },
-  {
-    description: "Level 9: Convert a string to uppercase.",
-    solution: `const string = 'Hello World';\nconst uppercased = string.toUpperCase();\nconsole.log(uppercased);`
-  },
-  {
-    description: "Level 10: Reverse a string.",
-    solution: `const string = 'Hello World';\nconst reversed = string.split('').reverse().join('');\nconsole.log(reversed);`
-  },
+    description: "Level 5: Use a loop to increment a number by 5 starting from the input number.",
+    solution: "let number = parseInt('10'); for (let i = 0; i < 5; i++) { number += 5; } result = number;",
+    hint: "Use a for loop that runs 5 times and increments the number by 5 each time.",
+    secondHint: "let number = parseInt('10'); for (let i = 0; i < ___; i++) { number += ___; } result = number;"
+  }
 ];
 
-// Initialize game state
 let currentLevel = 0;
 const levelInfo = document.getElementById("level-info");
-const challengeDescription = document.getElementById("challenge-description");
 const challengeElement = document.getElementById("challenge");
 const userInput = document.getElementById("user-input");
 const feedbackElement = document.getElementById("feedback");
 const submitButton = document.getElementById("submit-answer");
+const hintButton = document.getElementById("hint-button");
+const secondHintButton = document.getElementById("second-hint-button");
+const hintElement = document.getElementById("hint");
+const secondHintElement = document.getElementById("second-hint");
 const completionMessage = document.getElementById("completion-message");
+const levelCompletionMessage = document.getElementById("level-completion-message"); // New level completion message
 
 // Function to load the next challenge
 function loadChallenge() {
   if (currentLevel < challenges.length) {
-    const challenge = challenges[currentLevel];
-    levelInfo.textContent = `Level: ${currentLevel + 1}`;
-    challengeElement.textContent = challenge.description;
-    userInput.value = "";
-    feedbackElement.textContent = "";
+      const challenge = challenges[currentLevel];
+      levelInfo.textContent = `Level: ${currentLevel + 1}`;
+      challengeElement.textContent = challenge.description;
+      userInput.value = "";
+      feedbackElement.textContent = "";
+      hintElement.textContent = ""; 
+      secondHintElement.textContent = ""; 
+      levelCompletionMessage.style.display = "none"; // Hide level completion message
   } else {
-    document.getElementById("game").style.display = "none";
-    completionMessage.style.display = "block";
+      document.getElementById("game").style.display = "none";
+      completionMessage.style.display = "block";
   }
 }
 
 // Function to check the user's answer
 function checkAnswer() {
-  const userAnswer = userInput.value.trim().toLowerCase();
-  const correctAnswer = challenges[currentLevel].solution.toLowerCase();
+  const userAnswer = userInput.value.trim();
 
-  if (userAnswer === correctAnswer) {
-    feedbackElement.textContent = "Correct! Moving to the next level...";
-    currentLevel++;
-    setTimeout(loadChallenge, 1000);
+  // Initialize the expectedOutput and userOutput to undefined for each check
+  let expectedOutput, userOutput;
+
+  try {
+      expectedOutput = new Function("let result; " + challenges[currentLevel].solution + " return result;")();
+  } catch (error) {
+      feedbackElement.textContent = "Error in the expected solution.";
+      return;
+  }
+
+  try {
+      userOutput = new Function("let result; " + userAnswer + " return result;")();
+  } catch (error) {
+      feedbackElement.textContent = "There seems to be an error in your code. Try again!";
+      return;
+  }
+
+  // Compare the outputs after both are successfully executed
+  if (userOutput === expectedOutput) {
+      feedbackElement.textContent = "Correct! Well done!";
+      levelCompletionMessage.style.display = "block"; // Show level completion message
+      currentLevel++;
+      setTimeout(() => {
+          loadChallenge();
+      }, 2000); // Load next level after 2 seconds
   } else {
-    feedbackElement.textContent = "Incorrect, try again!";
+      feedbackElement.textContent = "Incorrect, try again!";
+      levelCompletionMessage.style.display = "none"; // Hide level completion message if incorrect
   }
 }
 
-// Event listener for the submit button
+// Function to handle showing hints
+function showHint() {
+  hintElement.textContent = challenges[currentLevel].hint;
+}
+
+// Function to handle showing the second hint
+function showSecondHint() {
+  secondHintElement.textContent = challenges[currentLevel].secondHint;
+}
+
+// Function to handle enter key in the textarea
+function handleEnter(event) {
+  if (event.key === 'Enter') {
+      event.preventDefault();
+      checkAnswer();
+  }
+}
+
+// Event listeners for buttons
 submitButton.addEventListener("click", checkAnswer);
+hintButton.addEventListener("click", showHint);
+secondHintButton.addEventListener("click", showSecondHint);
 
-
+// Load the first challenge
 loadChallenge();
 
 // Dark mode toggle
@@ -90,25 +126,5 @@ const darkModeToggle = document.getElementById("dark-mode-toggle");
 darkModeToggle.addEventListener("click", () => {
   document.body.classList.toggle("dark-mode");
 });
-// Function to handle Enter key in the textarea
-function handleEnter(event) {
-  if (event.key === "Enter") {
-    // Allow the default behavior (adding a new line)
-    event.preventDefault(); // This prevents any form submission or other default actions, but the new line is added by default.
-    const textarea = event.target;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
 
-    // Insert a new line at the cursor position
-    textarea.value = textarea.value.substring(0, start) + "\n" + textarea.value.substring(end);
-
-    // Move the cursor to the next line
-    textarea.selectionStart = textarea.selectionEnd = start + 1;
-  }
-}
-
-// Event listener for the submit button
-submitButton.addEventListener("click", checkAnswer);
-
-// Load the first challenge when the page loads
-loadChallenge();
+userInput.addEventListener("keydown", handleEnter); // Add this line to bind the event listener
